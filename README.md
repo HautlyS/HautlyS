@@ -112,3 +112,4 @@ Projeto atual focado em compressão eficiente de dados com Rust.
   ⭐️ From [HautlyS](https://github.com/HautlyS)
 
 </div>
+
