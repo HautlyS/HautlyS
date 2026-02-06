@@ -1,231 +1,170 @@
 <div align="center">
 
-# ⚡ HAUTLY_SYSTEMS ⚡
+![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20&height=200&section=header&text=HAUTLY%20SYSTEMS&fontSize=80&fontColor=00ff41&animation=fadeIn&fontAlignY=35&desc=NEURAL%20INTERFACE%20ACTIVE&descSize=20&descAlignY=55)
 
-```ascii
-██╗  ██╗ █████╗ ██╗   ██╗████████╗██╗  ██╗   ██╗
-██║  ██║██╔══██╗██║   ██║╚══██╔══╝██║  ╚██╗ ██╔╝
-███████║███████║██║   ██║   ██║   ██║   ╚████╔╝ 
-██╔══██║██╔══██║██║   ██║   ██║   ██║    ╚██╔╝  
-██║  ██║██║  ██║╚██████╔╝   ██║   ███████╗██║   
-╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝   
-```
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&duration=2000&pause=1000&color=FF0000&center=true&vCenter=true&width=600&lines=RUST+%7C+VR%2FAR+%7C+WEBGPU+%7C+WASM;BUILDING+IMMERSIVE+EXPERIENCES;FULL-STACK+%2B+SYSTEMS+ENGINEER" alt="Typing" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3000&pause=1000&color=00FF41&center=true&vCenter=true&multiline=true&repeat=true&width=800&height=100&lines=%3E%3E+NEURAL+INTERFACE+ACTIVE+%3C%3C;%3E%3E+RUST+%7C+VR%2FAR+%7C+WEBGPU+%7C+AI+%3C%3C;%3E%3E+BUILDING+THE+METAVERSE+%3C%3C" alt="Typing SVG" />
-
-![Profile Views](https://komarev.com/ghpvc/?username=HautlyS&color=00ff41&style=for-the-badge&label=NEURAL+CONNECTIONS)
+![](https://komarev.com/ghpvc/?username=HautlyS&color=red&style=flat-square&label=CONNECTIONS)
 
 </div>
 
----
-
-## 🔴 SYSTEM_STATUS
+## ⚡ CORE_SYSTEMS
 
 ```rust
-struct Developer {
-    codename: "HautlyS",
-    status: SystemStatus::Online,
-    focus: vec!["VR/AR", "Rust", "WebGPU", "Immersive Tech"],
-    mission: "Building bridges between digital and spiritual realms",
+impl Developer {
+    fn new() -> Self {
+        Self {
+            name: "HautlyS",
+            focus: ["VR/AR", "Rust", "WebGPU", "Immersive Tech"],
+            status: Status::Building,
+        }
+    }
 }
 ```
 
 <div align="center">
 
-### ⚡ TECH_STACK ⚡
-
-![Rust](https://img.shields.io/badge/RUST-000000?style=for-the-badge&logo=rust&logoColor=00FF41&labelColor=000000)
-![TypeScript](https://img.shields.io/badge/TYPESCRIPT-000000?style=for-the-badge&logo=typescript&logoColor=FF0000&labelColor=000000)
-![Python](https://img.shields.io/badge/PYTHON-000000?style=for-the-badge&logo=python&logoColor=00FF41&labelColor=000000)
-![WebGPU](https://img.shields.io/badge/WEBGPU-000000?style=for-the-badge&logo=webgl&logoColor=FF0000&labelColor=000000)
-![Bevy](https://img.shields.io/badge/BEVY-000000?style=for-the-badge&logo=rust&logoColor=00FF41&labelColor=000000)
-![Vue](https://img.shields.io/badge/VUE-000000?style=for-the-badge&logo=vue.js&logoColor=00FF41&labelColor=000000)
-![React](https://img.shields.io/badge/REACT-000000?style=for-the-badge&logo=react&logoColor=FF0000&labelColor=000000)
-![WASM](https://img.shields.io/badge/WASM-000000?style=for-the-badge&logo=webassembly&logoColor=00FF41&labelColor=000000)
+![Rust](https://img.shields.io/badge/RUST-000?style=flat&logo=rust&logoColor=fff)
+![TypeScript](https://img.shields.io/badge/TYPESCRIPT-000?style=flat&logo=typescript&logoColor=3178C6)
+![Python](https://img.shields.io/badge/PYTHON-000?style=flat&logo=python&logoColor=3776AB)
+![WebGPU](https://img.shields.io/badge/WEBGPU-000?style=flat&logo=webgl&logoColor=990000)
+![Bevy](https://img.shields.io/badge/BEVY-000?style=flat&logo=rust&logoColor=fff)
+![Vue](https://img.shields.io/badge/VUE-000?style=flat&logo=vue.js&logoColor=4FC08D)
+![React](https://img.shields.io/badge/REACT-000?style=flat&logo=react&logoColor=61DAFB)
+![WASM](https://img.shields.io/badge/WASM-000?style=flat&logo=webassembly&logoColor=654FF0)
 
 </div>
 
----
-
-## 🟢 ACTIVE_PROJECTS
+## 🔥 FEATURED_PROJECTS
 
 <table>
 <tr>
-<td width="50%">
+<td width="50%" valign="top">
 
-### 🔴 [VORTEX_R3D](https://github.com/HautlyS/Vortex-R3D)
-```diff
-+ VR TECHNO SUTRA SYSTEM
-! Cross-platform immersive experience
-```
+### 🌀 [VORTEX_R3D](https://github.com/HautlyS/Vortex-R3D)
+**VR Techno Sutra System**
 
-**CORE_TECH:**
-- `Rust` + `Bevy Engine`
-- `WebGPU` + `WASM`
-- `360° Equirectangular → Cubemap`
-- `Spatial Audio 3D`
-- `GLB/GLTF Models`
+Cross-platform immersive 360° VR experience built with Bevy engine.
 
-**FEATURES:**
+**Stack:** Rust • Bevy • WebGPU • WASM • 3D Audio
+
 ```rust
-✓ First-person VR controls
-✓ GPU-accelerated rendering
-✓ Cross-platform (Desktop/Web)
-✓ Real-time audio positioning
-✓ Dynamic character integration
+✓ 360° → Cubemap conversion
+✓ First-person VR controls  
+✓ Spatial audio positioning
+✓ Desktop + Web support
 ```
 
 </td>
-<td width="50%">
+<td width="50%" valign="top">
 
-### 🟢 [DHARMA_AR_SUTRA](https://github.com/HautlyS/dharma-ar-mandala-sutra)
-```diff
-+ AUGMENTED REALITY SPIRITUAL INTERFACE
-! WebXR mandala experience
-```
+### 🕉️ [DHARMA_AR_SUTRA](https://github.com/HautlyS/dharma-ar-mandala-sutra)
+**Augmented Reality Spiritual Interface**
 
-**CORE_TECH:**
-- `TypeScript` + `React`
-- `WebXR` + `Three.js`
-- `Tailwind CSS`
-- `AR Tracking`
+WebXR-powered AR mandala experience merging tech and spirituality.
 
-**FEATURES:**
+**Stack:** TypeScript • React • WebXR • Three.js
+
 ```typescript
 ✓ Interactive AR mandalas
-✓ Mobile-first design
-✓ Immersive visualizations
-✓ Spiritual tech fusion
+✓ Mobile-optimized
+✓ Real-time rendering
+✓ Immersive visuals
 ```
 
 </td>
 </tr>
 
 <tr>
-<td width="50%">
+<td width="50%" valign="top">
 
-### 🔴 [RCOMPRESS](https://github.com/HautlyS/RCompress)
-```diff
-+ HIGH-PERFORMANCE COMPRESSION ENGINE
-! Rust-powered data optimization
+### 🗜️ [RCOMPRESS](https://github.com/HautlyS/RCompress)
+**High-Performance Compression Engine**
+
+Rust-powered data compression with async processing.
+
+**Stack:** Rust • Async/Await • Zero-copy
+
+```rust
+⚡ In active development
 ```
-
-**CORE_TECH:**
-- `Rust` (Pure)
-- `Async/Await`
-- `Zero-copy parsing`
-- `Performance optimization`
-
-**STATUS:** `[████████░░] 80% COMPLETE`
 
 </td>
-<td width="50%">
+<td width="50%" valign="top">
 
-### 🟢 [KOWALSKI_AI](https://github.com/HautlyS/kowalski)
-```diff
-+ RUST-BASED AI AGENT SYSTEM
-! High-performance autonomous agent
+### 🤖 [KOWALSKI_AI](https://github.com/HautlyS/kowalski)
+**Rust-Based AI Agent**
+
+High-performance autonomous AI agent system.
+
+**Stack:** Rust • Tokio • AI/ML
+
+```rust
+✓ Async processing
+✓ Production-ready
 ```
-
-**CORE_TECH:**
-- `Rust` + `Tokio`
-- `AI/ML Integration`
-- `Async processing`
-
-**STATUS:** `[██████████] OPERATIONAL`
 
 </td>
 </tr>
 </table>
 
----
-
-## 🔴 NEURAL_NETWORK_ACTIVITY
+## 📊 METRICS
 
 <div align="center">
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=HautlyS&show_icons=true&theme=radical&hide_border=true&bg_color=0d1117&title_color=ff0000&icon_color=00ff41&text_color=00ff41&ring_color=ff0000" />
-<img width="49%" src="https://github-readme-streak-stats.herokuapp.com/?user=HautlyS&theme=radical&hide_border=true&background=0d1117&stroke=ff0000&ring=ff0000&fire=ff0000&currStreakLabel=00ff41&sideNums=00ff41&currStreakNum=00ff41&sideLabels=00ff41" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=HautlyS&show_icons=true&theme=dark&hide_border=true&bg_color=0d1117&title_color=ff0000&icon_color=00ff41&text_color=c9d1d9&ring_color=ff0000&include_all_commits=true&count_private=true"/>
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=HautlyS&layout=compact&theme=dark&hide_border=true&bg_color=0d1117&title_color=ff0000&text_color=c9d1d9&langs_count=8"/>
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=HautlyS&layout=compact&theme=radical&hide_border=true&bg_color=0d1117&title_color=ff0000&text_color=00ff41" />
-<img width="49%" src="https://github-readme-activity-graph.vercel.app/graph?username=HautlyS&theme=github-compact&bg_color=0d1117&color=00ff41&line=ff0000&point=00ff41&area=true&hide_border=true" />
+<img width="100%" src="https://github-readme-streak-stats.herokuapp.com/?user=HautlyS&theme=dark&hide_border=true&background=0d1117&stroke=ff0000&ring=ff0000&fire=ff0000&currStreakLabel=00ff41&sideNums=00ff41&currStreakNum=00ff41&sideLabels=c9d1d9"/>
+
+<img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=HautlyS&theme=high-contrast&bg_color=0d1117&color=00ff41&line=ff0000&point=00ff41&area=true&hide_border=true"/>
 
 </div>
 
----
+## 🏆 ACHIEVEMENTS
 
-## 🟢 SYSTEM_ARCHIVES
+<div align="center">
+
+![trophy](https://github-profile-trophy.vercel.app/?username=HautlyS&theme=darkhub&no-frame=true&no-bg=true&margin-w=4&column=8&rank=SECRET,SSS,SS,S,AAA,AA,A,B)
+
+</div>
+
+## 🔗 MORE_PROJECTS
 
 <details>
-<summary><b>🔴 CLICK TO ACCESS ARCHIVE_DATABASE</b></summary>
+<summary><b>⚡ View Archive</b></summary>
+<br>
 
-### 🔧 AUTOMATION_TOOLS
-- **[RUSSH](https://github.com/HautlyS/RUSSH)** ⭐ - SSH client in pure Rust
-- **[Github-Watcher](https://github.com/HautlyS/Github-Watcher)** - Repository monitoring system
-- **[Vortex-ROOK](https://github.com/HautlyS/Vortex-ROOK)** - Automation framework
-- **[Vortex-cpx](https://github.com/HautlyS/Vortex-cpx)** - iPhone media sync tool
+**🔧 Tools & Automation**
+- [RUSSH](https://github.com/HautlyS/RUSSH) ⭐ - SSH client in Rust
+- [Github-Watcher](https://github.com/HautlyS/Github-Watcher) - Repo monitoring
+- [Vortex-ROOK](https://github.com/HautlyS/Vortex-ROOK) - Automation framework
+- [Vortex-cpx](https://github.com/HautlyS/Vortex-cpx) - iPhone media sync
 
-### 🌐 WEB3_PROJECTS
-- **[solarpunk_utopia](https://github.com/HautlyS/solarpunk_utopia)** - Gift economy mesh network
-- **[whatsapp-rust](https://github.com/HautlyS/whatsapp-rust)** - WhatsApp client in Rust
+**🌐 Web3 & Networks**
+- [solarpunk_utopia](https://github.com/HautlyS/solarpunk_utopia) - Gift economy mesh
+- [whatsapp-rust](https://github.com/HautlyS/whatsapp-rust) - WhatsApp in Rust
 
-### 🎨 CREATIVE_INTERFACES
-- **[ecodraw](https://github.com/HautlyS/ecodraw)** - Ecological drawing tool
-- **[Vortex-iMAGE](https://github.com/HautlyS/Vortex-iMAGE)** - Image processing suite
-- **[MagicCursor](https://github.com/HautlyS/MagicCursor)** - Interactive cursor effects
+**🎨 Creative Tools**
+- [ecodraw](https://github.com/HautlyS/ecodraw) - Ecological drawing
+- [Vortex-iMAGE](https://github.com/HautlyS/Vortex-iMAGE) - Image processing
+- [MagicCursor](https://github.com/HautlyS/MagicCursor) - Interactive cursors
 
-### 🔬 EXPERIMENTAL
-- **[PARALLEL](https://github.com/HautlyS/PARALLEL)** - Parallel processing framework
-- **[RSCAN](https://github.com/HautlyS/RSCAN)** - Network scanning tool
-- **[exo](https://github.com/HautlyS/exo)** - AI cluster at home
+**🔬 Experimental**
+- [PARALLEL](https://github.com/HautlyS/PARALLEL) - Parallel processing
+- [RSCAN](https://github.com/HautlyS/RSCAN) - Network scanner
+- [exo](https://github.com/HautlyS/exo) - AI cluster at home
 
 </details>
 
 ---
 
-## 🔴 ACHIEVEMENT_MATRIX
-
 <div align="center">
 
-![trophy](https://github-profile-trophy.vercel.app/?username=HautlyS&theme=radical&no-frame=true&no-bg=true&margin-w=4&column=7&title=Commits,Repositories,Stars,Followers,PullRequest,Issues,MultiLanguage&rank=SECRET,SSS,SS,S,AAA,AA,A)
+**⚡ BUILDING THE FUTURE, ONE COMMIT AT A TIME ⚡**
 
-</div>
+[![GitHub](https://img.shields.io/badge/GitHub-HautlyS-181717?style=flat&logo=github)](https://github.com/HautlyS)
 
----
-
-## 🟢 CONNECT_PROTOCOL
-
-<div align="center">
-
-```ascii
-┌─────────────────────────────────────────┐
-│  ESTABLISHING SECURE CONNECTION...      │
-│  [████████████████████████] 100%        │
-│  STATUS: READY FOR TRANSMISSION         │
-└─────────────────────────────────────────┘
-```
-
-[![GitHub](https://img.shields.io/badge/GITHUB-HautlyS-00FF41?style=for-the-badge&logo=github&logoColor=00FF41&labelColor=000000)](https://github.com/HautlyS)
-[![Portfolio](https://img.shields.io/badge/PORTFOLIO-COMING_SOON-FF0000?style=for-the-badge&logo=firefox&logoColor=FF0000&labelColor=000000)](#)
-
-</div>
-
----
-
-<div align="center">
-
-```ascii
-╔═══════════════════════════════════════════════════════════╗
-║                                                           ║
-║  "Code is poetry. VR is the canvas. Rust is the brush."  ║
-║                                                           ║
-║              - HAUTLY SYSTEMS, 2026 -                     ║
-║                                                           ║
-╚═══════════════════════════════════════════════════════════╝
-```
-
-### ⚡ SYSTEM_UPTIME: INFINITE ⚡
-
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20&height=100&section=footer&text=HAUTLY_SYSTEMS&fontSize=30&fontColor=00ff41&animation=twinkling)
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20&height=120&section=footer)
 
 </div>
