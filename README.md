@@ -1,10 +1,3 @@
-<div align="center">
-
-![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20&height=150&section=header&text=HAUTLY&fontSize=70&fontColor=00ff41&animation=twinkling)
-
-```
-VR/AR ENGINEER • RUST DEVELOPER • IMMERSIVE TECH
-```
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&pause=1000&color=00FF41&center=true&vCenter=true&width=500&lines=Building+the+immersive+web+in+Rust+%F0%9F%A6%80;WebXR+%7C+WebGPU+%7C+WASM+%7C+3D+Audio;Open+source+%26+high+performance)](https://git.io/typing-svg)
 
@@ -86,38 +79,6 @@ VR/AR ENGINEER • RUST DEVELOPER • IMMERSIVE TECH
 [![HautlyS's GitHub Stats](https://github-readme-stats-sigma-five.vercel.app/api?username=HautlyS&show_icons=true&theme=dark&hide_border=true&bg_color=000000&title_color=00ff41&icon_color=00ff41&text_color=ffffff&include_all_commits=true&count_private=true)](https://github.com/HautlyS)
 
 [![Top Languages](https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=HautlyS&layout=compact&theme=dark&hide_border=true&bg_color=000000&title_color=00ff41&text_color=ffffff&langs_count=8)](https://github.com/HautlyS)
-
----
-
-## 🔥 Streak
-
-[![GitHub Streak](https://streak-stats.demolab.com?user=HautlyS&theme=dark&hide_border=true&background=000000&ring=00ff41&fire=00ff41&currStreakLabel=00ff41&sideLabels=ffffff&dates=ffffff&currStreakNum=ffffff&sideNums=ffffff)](https://git.io/streak-stats)
-
----
-
-## 🏆 Achievements
-
-[![trophy](https://github-profile-trophy.vercel.app/?username=HautlyS&theme=matrix&no-frame=true&no-bg=true&margin-w=4&column=7)](https://github.com/ryo-ma/github-profile-trophy)
-
----
-
-## 🐍 Contributions
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/HautlyS/HautlyS/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/HautlyS/HautlyS/output/github-snake.svg" />
-  <img alt="github-snake" src="https://raw.githubusercontent.com/HautlyS/HautlyS/output/github-snake.svg" />
-</picture>
-
----
-
-## 💬 Dev Quote
-
-[![Readme Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)](https://github.com/piyushsuthar/github-readme-quotes)
-
----
-
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=20,12,6&height=100&section=footer)
 
 **🔱 = Forked & Enhanced**
 
