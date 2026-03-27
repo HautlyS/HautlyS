@@ -9,7 +9,6 @@
 ![Bevy](https://img.shields.io/badge/Bevy-000?logo=rust&logoColor=fff&style=for-the-badge)
 ![WASM](https://img.shields.io/badge/WASM-000?logo=webassembly&style=for-the-badge)
 ![Vue](https://img.shields.io/badge/Vue-000?logo=vue.js&style=for-the-badge)
-![React](https://img.shields.io/badge/React-000?logo=react&style=for-the-badge)
 
 ---
 
@@ -24,10 +23,6 @@
 ### 🌀 [Vortex-R3D](https://github.com/HautlyS/Vortex-R3D)
 **VR Techno Sutra System** — Cross-platform 360° immersive experience  
 `Rust` `Bevy` `WebGPU` `WASM` `3D Audio`
-
-### 🕉️ [dharma-ar-mandala-sutra](https://github.com/HautlyS/dharma-ar-mandala-sutra)
-**AR Spiritual Interface** — WebXR mandala experience  
-`TypeScript` `React` `WebXR` `Three.js`
 
 ### 🗜️ [RCompress](https://github.com/HautlyS/RCompress) 🔱
 **High-Performance Compression** — Async data compression engine  
@@ -46,14 +41,8 @@
 |--------|-------------|
 | [kowalski](https://github.com/HautlyS/kowalski) 🔱 | High-performance Rust AI agent |
 | [exo](https://github.com/HautlyS/exo) 🔱 | AI cluster at home with everyday devices |
-| [Github-Watcher](https://github.com/HautlyS/Github-Watcher) | Repository monitoring system |
-| [Vortex-ROOK](https://github.com/HautlyS/Vortex-ROOK) | Automation framework |
+| [Vortex-ROOK](https://github.com/HautlyS/Vortex-ROOK) | Immersive book reader framework |
 
-### 🌐 Web3 & Networks
-| Project | Description |
-|--------|-------------|
-| [solarpunk_utopia](https://github.com/HautlyS/solarpunk_utopia) 🔱 | Gift economy mesh network |
-| [whatsapp-rust](https://github.com/HautlyS/whatsapp-rust) 🔱 | WhatsApp client in Rust |
 
 ### 🔧 Tools & Utilities
 | Project | Description |
