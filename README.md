@@ -1,5 +1,5 @@
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&pause=1000&color=00FF41&center=true&vCenter=true&width=500&lines=Building+the+immersive+web+in+Rust+Vue.js+Tailwind+%F0%9F%A6%80;WebXR+%7C+WebGPU+%7C+WASM+%7C+3D+Audio;Open+source+%26+high+performance)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&pause=1000&color=00FF41&center=true&vCenter=true&width=500&lines=.+Building+the+immersive+web+in+Rust+Vue.js+Tailwind+%F0%9F%A6%80;WebXR+%7C+WebGPU+%7C+WASM+%7C+3D+Audio;Open+source+%26+high+performance)](https://git.io/typing-svg)
 
 ---
 
