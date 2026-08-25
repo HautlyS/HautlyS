@@ -54,7 +54,6 @@
 ### 🎨 Creative & UI
 | Project | Description |
 |--------|-------------|
-| [ecodraw](https://github.com/HautlyS/ecodraw) | Ecological drawing tool |
 | [Vortex-iMAGE](https://github.com/HautlyS/Vortex-iMAGE) | Image processing suite |
 | [MagicCursor](https://github.com/HautlyS/MagicCursor) | Interactive cursor effects |
 | [agroecologia-desenhada](https://github.com/HautlyS/agroecologia-desenhada) | Agroecology design tool |
