@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cyber Calendar — a brutalist, terminal-themed calendar app. Localstorage-backed events, month and week views.">
+    <meta name="theme-color" content="#00FF85">
+    <meta name="color-scheme" content="dark">
     <title>CYBER CALENDAR // OPENSOURCE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +18,33 @@
             --border: 2px solid #00FF85;
             --border-dim: 1px solid #00FF85;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.05ms !important;
+            }
+        }
+
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 2px dashed var(--accent);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--accent);
+            color: #000;
+            padding: 0.75rem 1.25rem;
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            z-index: 100000;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 1rem; }
 
         * {
             box-sizing: border-box;
@@ -215,30 +245,76 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            body {
+                margin: 4px;
+                border-width: 2px;
+            }
+            header {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                padding: 10px;
+                text-align: center;
+            }
+            .brand { font-size: 1rem; word-break: break-all; }
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+            button {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .day-cell {
+                min-height: 70px;
+                padding: 4px;
+            }
+            .day-number { font-size: 0.85rem; }
+            .event-item {
+                font-size: 0.65rem;
+                padding: 2px 4px;
+                white-space: normal;
+            }
+            .time-slot { height: 36px; font-size: 0.5rem; }
+            .week-view { grid-template-columns: 36px repeat(7, 1fr); }
+            .status-bar { font-size: 0.6rem; padding: 4px 8px; flex-direction: column; gap: 2px; align-items: flex-start; }
+            #auth-overlay { padding: 1rem; }
+            #auth-overlay h1 { font-size: 2rem; }
+            #login-btn { font-size: 1rem; padding: 12px 24px; }
+        }
+        @media (max-width: 480px) {
+            .day-cell { min-height: 56px; }
+            .day-label { font-size: 0.65rem; padding: 4px; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="auth-overlay">
-        <h1 style="font-size: 4rem; margin-bottom: 2rem;">CYBER CALENDAR</h1>
-        <p style="margin-bottom: 2rem; max-width: 400px; text-align: center;">SECURE OAUTH2 PROTOCOL REQUIRED. CONNECT TO GOOGLE CLOUD TO SYNC DATA.</p>
-        <button id="login-btn" style="font-size: 1.5rem; padding: 20px 40px;">[ INITIALIZE_CONNECTION ]</button>
+    <a href="#calendar-root" class="skip-link">Skip to calendar</a>
+
+    <div id="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-desc">
+        <h1 id="auth-title" style="font-size: 4rem; margin-bottom: 2rem;">CYBER CALENDAR</h1>
+        <p id="auth-desc" style="margin-bottom: 2rem; max-width: 400px; text-align: center;">SECURE OAUTH2 PROTOCOL REQUIRED. CONNECT TO GOOGLE CLOUD TO SYNC DATA.</p>
+        <button id="login-btn" style="font-size: 1.5rem; padding: 20px 40px;" aria-label="Initialize connection">[ INITIALIZE_CONNECTION ]</button>
     </div>
 
     <header>
         <div class="brand">GRID_v1.0.4 // <span id="current-month-display">MAY 2024</span></div>
         <div class="controls">
-            <button onclick="changeMonth(-1)">&lt; PREV</button>
-            <button id="month-toggle" class="active" onclick="setView('month')">MONTH</button>
-            <button id="week-toggle" onclick="setView('week')">WEEK</button>
-            <button onclick="changeMonth(1)">NEXT &gt;</button>
+            <button type="button" onclick="changeMonth(-1)" aria-label="Previous month">&lt; PREV</button>
+            <button type="button" id="month-toggle" class="active" onclick="setView('month')" aria-pressed="true">MONTH</button>
+            <button type="button" id="week-toggle" onclick="setView('week')" aria-pressed="false">WEEK</button>
+            <button type="button" onclick="changeMonth(1)" aria-label="Next month">NEXT &gt;</button>
         </div>
         <div style="text-align: right;">
-            <button onclick="logout()">DISCONNECT</button>
+            <button type="button" onclick="logout()" aria-label="Disconnect from cloud">DISCONNECT</button>
         </div>
     </header>
 
-    <main id="calendar-root">
+    <main id="calendar-root" role="main" aria-label="Calendar view">
         <!-- Calendar injected here -->
     </main>
 
@@ -267,9 +343,12 @@
         document.getElementById('login-btn').addEventListener('click', () => {
             const btn = document.getElementById('login-btn');
             btn.innerText = "AUTHENTICATING...";
+            btn.disabled = true;
             setTimeout(() => {
                 state.isConnected = true;
                 document.getElementById('auth-overlay').classList.add('hidden');
+                btn.disabled = false;
+                if (root) root.focus({ preventScroll: true });
                 render();
             }, 1200);
         });
@@ -278,13 +357,19 @@
             state.isConnected = false;
             document.getElementById('auth-overlay').classList.remove('hidden');
             document.getElementById('login-btn').innerText = "[ INITIALIZE_CONNECTION ]";
+            const btn = document.getElementById('login-btn');
+            if (btn) btn.focus({ preventScroll: true });
         }
 
         // NAVIGATION
         function setView(view) {
             state.view = view;
-            document.getElementById('month-toggle').classList.toggle('active', view === 'month');
-            document.getElementById('week-toggle').classList.toggle('active', view === 'week');
+            const monthBtn = document.getElementById('month-toggle');
+            const weekBtn = document.getElementById('week-toggle');
+            monthBtn.classList.toggle('active', view === 'month');
+            weekBtn.classList.toggle('active', view === 'week');
+            monthBtn.setAttribute('aria-pressed', view === 'month');
+            weekBtn.setAttribute('aria-pressed', view === 'week');
             render();
         }
 
@@ -293,13 +378,14 @@
             render();
         }
 
+        const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+
         // CORE LOGIC
         function render() {
             root.innerHTML = '';
             const year = state.currentDate.getFullYear();
             const month = state.currentDate.getMonth();
-            
-            const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+
             monthDisplay.innerText = `${monthNames[month]} ${year}`;
 
             if (state.view === 'month') {
@@ -312,15 +398,18 @@
         function renderMonth(year, month) {
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
+
             // Header Labels
             const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
             const grid = document.createElement('div');
             grid.className = 'calendar-grid';
-            
+            grid.setAttribute('role', 'grid');
+            grid.setAttribute('aria-label', `${monthNames[month]} ${year}`);
+
             days.forEach(d => {
                 const label = document.createElement('div');
                 label.className = 'day-label';
+                label.setAttribute('role', 'columnheader');
                 label.innerText = d;
                 grid.appendChild(label);
             });
@@ -329,27 +418,46 @@
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 empty.className = 'day-cell other-month';
+                empty.setAttribute('aria-hidden', 'true');
                 grid.appendChild(empty);
             }
 
+            const today = new Date();
+            today.setHours(0,0,0,0);
             // Actual days
             for (let d = 1; d <= daysInMonth; d++) {
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
+                cell.setAttribute('role', 'gridcell');
+                cell.setAttribute('tabindex', '0');
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                
+                const isToday = new Date(dateStr).getTime() === today.getTime();
+                cell.setAttribute('aria-label', `${monthNames[month]} ${d}${isToday ? ', today' : ''}`);
+                if (isToday) cell.style.outline = '1px dashed var(--accent)';
+
                 cell.innerHTML = `<span class="day-number">${d}</span>`;
                 cell.onclick = (e) => {
-                    if(e.target === cell || e.target.classList.contains('day-number')) addEvent(dateStr);
+                    if(e.target === cell || e.target.classList.contains('day-number') || e.target === cell.querySelector('.day-number')) addEvent(dateStr);
+                };
+                cell.onkeydown = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        addEvent(dateStr);
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        moveCellFocus(cell, e.key);
+                    }
                 };
 
                 const list = document.createElement('div');
                 list.className = 'event-list';
-                
+
                 state.events.filter(e => e.date === dateStr).forEach(ev => {
-                    const item = document.createElement('div');
+                    const item = document.createElement('button');
+                    item.type = 'button';
                     item.className = 'event-item';
                     item.innerText = ev.title;
+                    item.setAttribute('aria-label', `Delete event: ${ev.title}`);
                     item.onclick = (e) => {
                         e.stopPropagation();
                         deleteEvent(ev.id);
@@ -364,16 +472,33 @@
             root.appendChild(grid);
         }
 
+        function moveCellFocus(currentCell, key) {
+            const cells = Array.from(root.querySelectorAll('.day-cell:not(.other-month)'));
+            const idx = cells.indexOf(currentCell);
+            if (idx < 0) return;
+            const cols = 7;
+            let nextIdx = idx;
+            if (key === 'ArrowLeft') nextIdx = Math.max(0, idx - 1);
+            else if (key === 'ArrowRight') nextIdx = Math.min(cells.length - 1, idx + 1);
+            else if (key === 'ArrowUp') nextIdx = Math.max(0, idx - cols);
+            else if (key === 'ArrowDown') nextIdx = Math.min(cells.length - 1, idx + cols);
+            if (cells[nextIdx]) cells[nextIdx].focus();
+        }
+
         function renderWeek() {
             const container = document.createElement('div');
             container.className = 'week-view';
-            
+            container.setAttribute('role', 'grid');
+            container.setAttribute('aria-label', 'Week view');
+
             // Time Column
             const timeCol = document.createElement('div');
             timeCol.className = 'time-col';
+            timeCol.setAttribute('role', 'presentation');
             for(let i = 0; i < 24; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'time-slot';
+                slot.setAttribute('role', 'rowheader');
                 slot.innerText = `${String(i).padStart(2, '0')}:00`;
                 timeCol.appendChild(slot);
             }
@@ -392,22 +517,38 @@
 
                 const col = document.createElement('div');
                 col.className = 'day-cell';
+                col.setAttribute('role', 'gridcell');
+                col.setAttribute('tabindex', '0');
                 col.style.flexDirection = 'column';
+                col.setAttribute('aria-label', `${['SUN','MON','TUE','WED','THU','FRI','SAT'][i]} the ${day.getDate()}`);
                 col.innerHTML = `<span class="day-number" style="border-bottom: var(--border-dim); padding-bottom: 5px;">${day.getDate()} ${['SUN','MON','TUE','WED','THU','FRI','SAT'][i]}</span>`;
-                
+
                 const list = document.createElement('div');
                 list.className = 'event-list';
                 list.style.marginTop = '10px';
 
                 state.events.filter(e => e.date === dateStr).forEach(ev => {
-                    const item = document.createElement('div');
+                    const item = document.createElement('button');
+                    item.type = 'button';
                     item.className = 'event-item';
                     item.innerText = ev.title;
-                    item.onclick = () => deleteEvent(ev.id);
+                    item.setAttribute('aria-label', `Delete event: ${ev.title}`);
+                    item.onclick = (e) => {
+                        e.stopPropagation();
+                        deleteEvent(ev.id);
+                    };
                     list.appendChild(item);
                 });
 
-                col.onclick = () => addEvent(dateStr);
+                col.onclick = (e) => {
+                    if (e.target === col || e.target.classList.contains('day-number')) addEvent(dateStr);
+                };
+                col.onkeydown = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        addEvent(dateStr);
+                    }
+                };
                 col.appendChild(list);
                 container.appendChild(col);
             }

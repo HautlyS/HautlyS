@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Earth Guardians × SOS Águas da Prata — collaborative environmental activism page with immersive 3D icosahedron scene.">
+    <meta name="theme-color" content="#00f2ff">
+    <meta name="color-scheme" content="dark">
     <title>Earth Guardians x SOS Águas da Prata</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -20,13 +23,52 @@
             --font-mono: 'JetBrains Mono', monospace;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.05ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 2px dashed var(--aqueous);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--aqueous);
+            color: var(--amoled);
+            padding: 0.75rem 1.25rem;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            z-index: 100000;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 1rem; }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--amoled); 
-            color: var(--silver); 
+        body {
+            background-color: var(--amoled);
+            color: var(--silver);
             font-family: var(--font-main);
             overflow-x: hidden;
-            cursor: none;
+        }
+
+        /* Hide system cursor only on fine-pointer (mouse) devices; keep default on touch */
+        @media (pointer: fine) and (hover: hover) {
+            body { cursor: none; }
+        }
+
+        /* Hide custom cursor under reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            #cursor { display: none !important; }
+            body { cursor: auto !important; }
         }
 
         /* Argent Aqueous Background */
@@ -40,17 +82,19 @@
             pointer-events: none;
         }
 
-        /* Custom Cursor */
-        #cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
+        /* Custom Cursor (only on fine-pointer devices) */
+        @media (pointer: fine) and (hover: hover) {
+            #cursor {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                background: #fff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                mix-blend-mode: difference;
+                transition: transform 0.1s ease;
+            }
         }
 
         /* Header & Logo */
@@ -203,37 +247,63 @@
             opacity: 0.4;
             z-index: 10;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .nav-links { font-size: 9px; letter-spacing: 2px; }
+            .hero-text { font-size: 14vw !important; line-height: 1; }
+            #hero, #footer-trigger {
+                padding: 0 5vw;
+            }
+            .sub-data { font-size: 1.3rem !important; letter-spacing: 2px !important; }
+            footer { font-size: 9px; padding: 0 1rem; }
+            .logo-main { width: 60px; }
+            #canvas-container { opacity: 0.45; }
+        }
+        @media (max-width: 480px) {
+            #canvas-container { display: none; }
+            .liquid-overlay { display: none; }
+            .sub-data { font-size: 1rem !important; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="cursor"></div>
-    <div class="liquid-overlay"></div>
-    <div id="canvas-container"></div>
+    <a href="#hero" class="skip-link">Skip to content</a>
 
-    <header>
+    <div id="cursor" aria-hidden="true"></div>
+    <div class="liquid-overlay" aria-hidden="true"></div>
+    <div id="canvas-container" aria-hidden="true"></div>
+
+    <header role="banner">
         <div class="header-left">
             <div class="sos-title">SOS ÁGUAS DA PRATA</div>
-            <img src="https://images.squarespace-cdn.com/content/v1/5e66bef295469c229eeb5cfc/1584225761902-0O1QA5X2DW2MYSOWUMJZ/logo+now+white.png?format=1500w" alt="Logo" class="logo-main">
+            <img src="https://images.squarespace-cdn.com/content/v1/5e66bef295469c229eeb5cfc/1584225761902-0O1QA5X2DW2MYSOWUMJZ/logo+now+white.png?format=1500w" alt="SOS Águas da Prata logo" class="logo-main" loading="lazy">
         </div>
-        <div class="nav-links">Join forces // SIGN IN</div>
-
-
+        <nav class="nav-links" aria-label="Site sections">Join forces // SIGN IN</nav>
     </header>
 
-    <div class="scroll-indicator">
+    <main id="main-content" role="main">
+    <div class="scroll-indicator" aria-hidden="true">
         <div class="scroll-bar"></div>
     </div>
 
-    <section id="hero">
-        <h1 class="hero-text">EARTH GUARDIANS BR</h1>
+    <section id="hero" aria-labelledby="hero-heading">
+        <h1 class="hero-text" id="hero-heading">EARTH GUARDIANS BR</h1>
         <div class="sub-data">12 YEARS OF RESISTENCE, ART AND WORK</div>
     </section>
 
-    <section id="footer-trigger">
-        <h1 class="hero-text" style="font-size: 5vw;">CHOOSE ACTION NOW!</h1>
-        <div class="sub-data">We won’t wait, it’s our future, we decide. </div>
+    <section id="footer-trigger" aria-labelledby="action-heading">
+        <h2 class="hero-text" id="action-heading" style="font-size: 5vw;">CHOOSE ACTION NOW!</h2>
+        <div class="sub-data">We won’t wait, it’s our future, we decide.</div>
     </section>
+    </main>
 
     <footer>JOIN THE MOVEMENT | FIGHT AGAINST CLIMATE CRISES IN YOUR COMMUNITY</footer>
 

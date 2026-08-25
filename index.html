@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serrated Portfolio | Designer Activist</title>
+    <meta name="description" content="Tupã Levi — serrated portfolio. Open-source developer working with Rust, Tauri, Vue.js, and Tailwind. Live GitHub activity and project showcase.">
+    <meta name="theme-color" content="#00FF85">
+    <meta name="color-scheme" content="dark">
+    <title>Full Stack | Tupã Levi</title>
+    <link rel="icon" href="public/github.png">
+    <link rel="preload" as="image" href="public/github.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,11 +23,54 @@
             --serrated: polygon(0% 0%, 5% 2%, 10% 0%, 15% 2%, 20% 0%, 25% 2%, 30% 0%, 35% 2%, 40% 0%, 45% 2%, 50% 0%, 55% 2%, 60% 0%, 65% 2%, 70% 0%, 75% 2%, 80% 0%, 85% 2%, 90% 0%, 95% 2%, 100% 0%, 100% 100%, 95% 98%, 90% 100%, 85% 98%, 80% 100%, 75% 98%, 70% 100%, 65% 98%, 60% 100%, 55% 98%, 50% 100%, 45% 98%, 40% 100%, 35% 98%, 30% 100%, 25% 98%, 20% 100%, 15% 98%, 10% 100%, 5% 98%, 0% 100%);
         }
 
+        /* Skip-to-content for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--green);
+            color: #000;
+            padding: 0.75rem 1.25rem;
+            font-family: var(--mono);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            z-index: 100000;
+            transition: top 0.2s ease;
+            border: 2px solid var(--bg);
+        }
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        /* Visible focus ring for keyboard navigation */
+        a:focus-visible,
+        button:focus-visible,
+        [tabindex]:focus-visible,
+        .project-item:focus-visible,
+        .repo-card:focus-visible,
+        .activity-repo:focus-visible {
+            outline: 2px dashed var(--green);
+            outline-offset: 4px;
+        }
+        .project-item:focus-visible,
+        .repo-card:focus-visible {
+            background: var(--green-dim);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Interactive cursor only on light/decorative surfaces */
+        body, .marquee, footer, .poster, .cta-btn {
             cursor: crosshair;
+        }
+        /* Conventional cursors where users expect them */
+        a, button, [role="button"], input, textarea, select, label[for],
+        .project-item, .repo-card, .activity-repo, .skip-link, .version-btn {
+            cursor: pointer;
         }
 
         body {
@@ -32,6 +80,18 @@
             overflow-x: hidden;
             line-height: 1.2;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Respect user motion preferences (epilepsy / accessibility) */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.05ms !important;
+                scroll-behavior: auto !important;
+            }
+            #vitreous-canvas { display: none !important; }
+            .scanlines, .noise-overlay { opacity: 0.04; }
         }
 
         /* Noise & Texture Overlays */
@@ -153,6 +213,14 @@
             position: relative;
             overflow: visible;
             cursor: pointer;
+            background: transparent;
+            color: inherit;
+            font-family: inherit;
+            text-align: left;
+            width: 100%;
+            border-top: none;
+            border-left: none;
+            border-right: none;
         }
 
         .project-item:hover {
@@ -333,26 +401,399 @@
         @media (max-width: 768px) {
             .project-item {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.5rem;
+                padding: 2rem 0;
             }
             .project-tags { text-align: left; }
             .project-img-preview { display: none; }
+            .project-num { font-size: 0.8rem; }
+            h1 { font-size: clamp(2.5rem, 14vw, 6rem); }
+            .subtitle { font-size: 1.1rem; }
+            section { padding: 6vh 5vw; }
+            header {
+                padding: 1.25rem;
+                margin-top: 3vh;
+            }
+            .marquee { font-size: 0.95rem; padding: 8px 0; }
+            .cta-btn { padding: 1.5rem 2rem; font-size: clamp(1.5rem, 10vw, 4rem); }
+            .poster { padding: 1.5rem; transform: rotate(0deg) !important; }
+            .poster:nth-child(even) { transform: rotate(0deg) !important; }
+            .repo-card { padding: 1rem; }
+            .repo-name { font-size: 1rem; }
+            .live-feed { max-height: 380px; padding: 1rem; }
+            .activity-row { font-size: 0.8rem; }
+            footer h2 { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            #vitreous-canvas { display: none; }
+            h1 { font-size: clamp(2.2rem, 12vw, 4.5rem); }
+            .stamp {
+                top: 8px;
+                right: 10px;
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+            .github-grid { gap: 1rem; }
+            .activity-time { display: none; }
+        }
+
+        /* Project FRONTEND/BACKEND toggle */
+        .project-toggle {
+            display: inline-flex;
+            margin-top: 1.5rem;
+            border: 2px solid var(--green);
+            font-family: var(--mono);
+            text-transform: uppercase;
+            font-weight: 700;
+            background: transparent;
+        }
+        .project-toggle button {
+            background: transparent;
+            color: var(--green);
+            border: none;
+            padding: 0.85rem 2rem;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: inherit;
+            text-transform: inherit;
+            letter-spacing: 0.1em;
+            transition: background 0.2s, color 0.2s;
+            position: relative;
+        }
+        .project-toggle button + button {
+            border-left: 2px solid var(--green);
+        }
+        .project-toggle button[aria-pressed="true"] {
+            background: var(--green);
+            color: var(--bg);
+        }
+        .project-toggle button:hover:not([aria-pressed="true"]) {
+            background: var(--green-dim);
+        }
+        @media (max-width: 768px) {
+            .project-toggle button { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        }
+
+        /* Show/hide per tab */
+        .project-list[hidden] { display: none; }
+
+        /* GitHub Live Sync */
+        .live-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            margin-left: 0.6rem;
+            vertical-align: middle;
+            animation: livepulse 1.4s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--green);
+        }
+        .live-dot.offline {
+            background: #ff4d4d;
+            box-shadow: 0 0 8px #ff4d4d;
+            animation: none;
+        }
+        @keyframes livepulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(1.3); }
+        }
+        .sync-meta {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(0, 255, 133, 0.6);
+            margin-top: 1rem;
+        }
+
+        .github-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-top: 5vh;
+        }
+        @media (max-width: 900px) {
+            .github-grid { grid-template-columns: 1fr; }
+        }
+
+        .live-feed {
+            background: rgba(0, 11, 5, 0.5);
+            border: 2px solid var(--green);
+            padding: 1.5rem;
+            max-height: 540px;
+            overflow-y: auto;
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: var(--green) #000;
+        }
+        .live-feed::-webkit-scrollbar { width: 6px; }
+        .live-feed::-webkit-scrollbar-track { background: #000; }
+        .live-feed::-webkit-scrollbar-thumb { background: var(--green); }
+
+        /* Skeleton loader for the live feed */
+        .live-feed.loading::after,
+        .repos-grid.loading::after { content: none; }
+        .skeleton-line {
+            display: block;
+            height: 0.85rem;
+            background: linear-gradient(90deg,
+                rgba(0,255,133,0.05) 0%,
+                rgba(0,255,133,0.18) 50%,
+                rgba(0,255,133,0.05) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.6s linear infinite;
+            margin: 0.7rem 0;
+            border-left: 2px solid var(--green-dim);
+            padding-left: 0.6rem;
+        }
+        .skeleton-line.short { width: 35%; }
+        .skeleton-line.medium { width: 60%; }
+        .skeleton-line.long { width: 85%; }
+        .skeleton-card {
+            height: 140px;
+            border: 1px solid var(--green);
+            background: linear-gradient(90deg,
+                rgba(0,11,5,0.2) 0%,
+                rgba(0,255,133,0.08) 50%,
+                rgba(0,11,5,0.2) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.8s linear infinite;
+        }
+        @keyframes skeleton-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton-line, .skeleton-card { animation: none; }
+        }
+        .live-feed::before {
+            content: '// EVENT_STREAM';
+            position: absolute;
+            top: -10px;
+            left: 1rem;
+            background: var(--bg);
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            color: var(--green);
+            letter-spacing: 0.2em;
+        }
+        .activity-row {
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed var(--green-dim);
+            font-size: 0.85rem;
+        }
+        .activity-row:last-child { border-bottom: none; }
+        .activity-head {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .activity-icon {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            padding: 3px 7px;
+            border: 1px solid currentColor;
+            letter-spacing: 0.1em;
+            font-family: var(--mono);
+            white-space: nowrap;
+        }
+        .activity-icon.push { color: var(--green); }
+        .activity-icon.create { color: #ffd700; }
+        .activity-icon.pr { color: #00c8ff; }
+        .activity-icon.star { color: #ff9d00; }
+        .activity-icon.fork { color: #c864ff; }
+        .activity-icon.release { color: #ff4d4d; }
+        .activity-detail {
+            grid-column: 1 / -1;
+            padding-left: 1.6rem;
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            color: rgba(0, 255, 133, 0.6);
+            line-height: 1.4;
+            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .activity-detail .commit-sha {
+            display: inline-block;
+            margin-left: 0.4rem;
+            padding: 1px 4px;
+            border: 1px solid rgba(0, 255, 133, 0.3);
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: rgba(0, 255, 133, 0.7);
+        }
+        .activity-detail .commit-extra {
+            color: rgba(0, 255, 133, 0.45);
+            font-style: italic;
+        }
+        .activity-repo {
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: inherit;
+            background: transparent;
+            border: none;
+            padding: 0;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+            letter-spacing: inherit;
+            transition: color 0.15s;
+        }
+        .activity-repo:hover { text-decoration: underline; color: #fff; }
+        .activity-time {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: rgba(0, 255, 133, 0.55);
+            white-space: nowrap;
+            text-align: right;
+        }
+        .activity-time[data-iso] { cursor: help; }
+        .feed-empty {
+            padding: 2rem 0;
+            text-align: center;
+            opacity: 0.55;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        .feed-empty .hint { display: block; opacity: 0.6; margin-top: 0.5rem; font-size: 0.7rem; }
+
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .repo-card:hover {
+            background: var(--green-dim);
+            border-width: 2px;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--green);
+        }
+        .repo-card:hover .repo-name { color: var(--bg); }
+        .repo-card:hover .repo-meta,
+        .repo-card:hover .repo-stack,
+        .repo-card:hover .repo-topics { opacity: 1; }
+        .repo-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .repo-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            word-break: break-all;
+            transition: color 0.2s;
+        }
+        .repo-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.45;
+            color: rgba(0, 255, 133, 0.85);
+        }
+        .repo-desc:empty + .repo-topics { margin-top: 0; }
+        .repo-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.65;
+            transition: opacity 0.2s;
+        }
+        .repo-meta span { padding: 2px 6px; border: 1px solid currentColor; }
+        .repo-meta .repo-time { border: none; padding: 2px 0; }
+        .repo-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.4rem;
+        }
+        .lang-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 2px 8px;
+            border: 1px solid rgba(0, 255, 133, 0.5);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .lang-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .repo-card {
+            border: 1px solid var(--green);
+            padding: 1.25rem;
+            background: rgba(0, 11, 5, 0.3);
+            position: relative;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            color: inherit;
+            font-family: inherit;
+            text-align: left;
+            width: 100%;
+        }
+
+        .repo-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .topic-pill {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            text-transform: lowercase;
+            opacity: 0.75;
+            padding: 1px 5px;
+            border: 1px dashed rgba(0, 255, 133, 0.35);
+        }
+
+        .retry-btn {
+            margin-top: 0.75rem;
+            background: transparent;
+            color: var(--green);
+            border: 1px solid var(--green);
+            padding: 0.5rem 1rem;
+            font-family: var(--mono);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .retry-btn:hover {
+            background: var(--green);
+            color: #000;
         }
     </style>
 </head>
 <body>
 
+    <!-- Skip to content, visible on focus -->
+    <a href="#hero" class="skip-link">Skip to content</a>
+
     <div class="noise-overlay"></div>
     <div class="scanlines"></div>
 
-    <div class="marquee">
+    <div class="marquee" aria-hidden="true">
         <div class="marquee-inner">
             OPEN SOURCE DEVELOPER // JAVASCRIPT // RUST // VUE.JS // TAILWIND // TAURI // BRAZIL // FREE THE SYSTEM // OPEN SOURCE // BODHICITTA // RUST // VUE.JS // TAILWIND // TAURI // BRAZIL // BODHICITTA MINDSET //
         </div>
     </div>
 
     <section id="hero">
-        <canvas id="vitreous-canvas"></canvas>
+        <canvas id="vitreous-canvas" aria-hidden="true"></canvas>
 	<header>
 	    <div class="stamp">PROFESSIONAL OUTPUT</div>
             <div class="glitch-wrapper">
@@ -366,49 +807,92 @@
 
     <section id="work">
         <h2 class="outline-text" style="font-size: 4rem; text-transform: uppercase;">Manifested Code</h2>
-        <div class="project-list">
-            
-            <div class="project-item" onmouseenter="showImage(event, 'img6')" onmousemove="moveImage(event, 'img6')" onmouseleave="hideImage('img6')" onclick="window.open('https://shop.bhumisparshaschool.org', '_blank')">
+        <div class="project-toggle" role="group" aria-label="Project category">
+            <button type="button" id="front-tab" aria-controls="projects-fe" aria-pressed="true" onclick="switchProjects('fe')">FRONTEND</button>
+            <button type="button" id="back-tab" aria-controls="projects-be" aria-pressed="false" onclick="switchProjects('be')">BACKEND</button>
+        </div>
+        <div id="projects-fe" class="project-list" role="list">
+
+            <button type="button" class="project-item" aria-label="Open Bhumisparsha Shop project" onmouseenter="showImage(event, 'img6')" onmousemove="moveImage(event, 'img6')" onmouseleave="hideImage('img6')" onclick="window.open('https://shop.bhumisparshaschool.org', '_blank')">
                 <span class="project-num">01/06</span>
                 <span class="project-title">BHUMISPARSHA SHOP</span>
                 <span class="project-tags">Vue.js / Nuxt / Store</span>
-                <img id="img6" src="public/bhumisparsha-shop.png" class="project-img-preview" alt="Project 6">
-            </div>
+                <img id="img6" src="public/bhumisparsha-shop.png" class="project-img-preview" alt="Bhumisparsha Shop screenshot">
+            </button>
 
-            <div class="project-item" onmouseenter="showImage(event, 'img1')" onmousemove="moveImage(event, 'img1')" onmouseleave="hideImage('img1')" onclick="window.open('https://hautlys.github.io/projects', '_blank')">
+            <button type="button" class="project-item" aria-label="Open Psiu Project" onmouseenter="showImage(event, 'img1')" onmousemove="moveImage(event, 'img1')" onmouseleave="hideImage('img1')" onclick="window.open('https://hautlys.github.io/projects', '_blank')">
                 <span class="project-num">02/06</span>
                 <span class="project-title">PSIU PROJECT</span>
                 <span class="project-tags">Vue.js / JavaScript</span>
-                <img id="img1" src="public/psiu.png" class="project-img-preview" alt="Project 1">
-            </div>
+                <img id="img1" src="public/psiu.png" class="project-img-preview" alt="Psiu Project screenshot">
+            </button>
 
-            <div class="project-item" onmouseenter="showImage(event, 'img2')" onmousemove="moveImage(event, 'img2')" onmouseleave="hideImage('img2')" onclick="window.open('https://technosutra.bhumisparshaschool.org/home', '_blank')">
+            <button type="button" class="project-item" aria-label="Open Techno Sutra project" onmouseenter="showImage(event, 'img2')" onmousemove="moveImage(event, 'img2')" onmouseleave="hideImage('img2')" onclick="window.open('https://technosutra.bhumisparshaschool.org/home', '_blank')">
                 <span class="project-num">03/06</span>
                 <span class="project-title">TECHNO SUTRA</span>
                 <span class="project-tags">HTML / CSS / Tailwind</span>
-                <img id="img2" src="public/technosutra.png" class="project-img-preview" alt="Project 2">
-            </div>
+                <img id="img2" src="public/technosutra.png" class="project-img-preview" alt="Techno Sutra screenshot">
+            </button>
 
-            <div class="project-item" onmouseenter="showImage(event, 'img3')" onmousemove="moveImage(event, 'img3')" onmouseleave="hideImage('img3')" onclick="showSOSVersionOverlay(event)">
+            <button type="button" class="project-item" aria-label="Select SOS Águas da Prata version" onmouseenter="showImage(event, 'img3')" onmousemove="moveImage(event, 'img3')" onmouseleave="hideImage('img3')" onclick="showSOSVersionOverlay(event)">
                 <span class="project-num">04/06</span>
                 <span class="project-title">SOS ÁGUAS DA PRATA</span>
                 <span class="project-tags">Select Version</span>
-                <img id="img3" src="public/sos.png" class="project-img-preview" alt="Project 3">
-            </div>
+                <img id="img3" src="public/sos.png" class="project-img-preview" alt="SOS Águas da Prata screenshot">
+            </button>
 
-            <div class="project-item" onmouseenter="showImage(event, 'img4')" onmousemove="moveImage(event, 'img4')" onmouseleave="hideImage('img4')" onclick="showVersionOverlay(event)">
+            <button type="button" class="project-item" aria-label="Select Earth Guardians BR version" onmouseenter="showImage(event, 'img4')" onmousemove="moveImage(event, 'img4')" onmouseleave="hideImage('img4')" onclick="showVersionOverlay(event)">
                 <span class="project-num">05/06</span>
                 <span class="project-title">EARTH GUARDIANS BR</span>
                 <span class="project-tags">Select Version</span>
-                <img id="img4" src="public/egbr.png" class="project-img-preview" alt="Project 4">
-            </div>
+                <img id="img4" src="public/egbr.png" class="project-img-preview" alt="Earth Guardians BR screenshot">
+            </button>
 
-            <div class="project-item" onmouseenter="showImage(event, 'img5')" onmousemove="moveImage(event, 'img5')" onmouseleave="hideImage('img5')" onclick="window.location.href='./calendar.html'">
+            <button type="button" class="project-item" aria-label="Open Cyber Calendar" onmouseenter="showImage(event, 'img5')" onmousemove="moveImage(event, 'img5')" onmouseleave="hideImage('img5')" onclick="window.location.href='./calendar.html'">
                 <span class="project-num">06/06</span>
                 <span class="project-title">CYBER CALENDAR</span>
                 <span class="project-tags">JavaScript / LocalStorage</span>
-                <img id="img5" src="public/calendar.png" class="project-img-preview" alt="Project 5">
-            </div>
+                <img id="img5" src="public/calendar.png" class="project-img-preview" alt="Cyber Calendar screenshot">
+            </button>
+
+        </div>
+        <div id="projects-be" class="project-list" role="list" hidden>
+
+            <button type="button" class="project-item" aria-label="Open Vortex-R3D on GitHub" onclick="window.open('https://github.com/HautlyS/Vortex-R3D', '_blank')">
+                <span class="project-num">01/06</span>
+                <span class="project-title">VORTEX-R3D</span>
+                <span class="project-tags">Rust / Bevy / WebGPU / WASM</span>
+            </button>
+
+            <button type="button" class="project-item" aria-label="Open RUSSH on GitHub" onclick="window.open('https://github.com/HautlyS/RUSSH', '_blank')">
+                <span class="project-num">02/06</span>
+                <span class="project-title">RUSSH</span>
+                <span class="project-tags">Rust / Networking / Security</span>
+            </button>
+
+            <button type="button" class="project-item" aria-label="Open RCompress on GitHub" onclick="window.open('https://github.com/HautlyS/RCompress', '_blank')">
+                <span class="project-num">03/06</span>
+                <span class="project-title">RCOMPRESS</span>
+                <span class="project-tags">Rust / Async / Zero-copy</span>
+            </button>
+
+            <button type="button" class="project-item" aria-label="Open Mycelium on GitHub" onclick="window.open('https://github.com/HautlyS/mycelium', '_blank')">
+                <span class="project-num">04/06</span>
+                <span class="project-title">MYCELIUM</span>
+                <span class="project-tags">Rust / P2P / Federated LoRA</span>
+            </button>
+
+            <button type="button" class="project-item" aria-label="Open exo on GitHub" onclick="window.open('https://github.com/HautlyS/exo', '_blank')">
+                <span class="project-num">05/06</span>
+                <span class="project-title">EXO</span>
+                <span class="project-tags">AI Cluster / Distributed</span>
+            </button>
+
+            <button type="button" class="project-item" aria-label="Open kowalski on GitHub" onclick="window.open('https://github.com/HautlyS/kowalski', '_blank')">
+                <span class="project-num">06/06</span>
+                <span class="project-title">KOWALSKI</span>
+                <span class="project-tags">Rust / AI Agent</span>
+            </button>
 
         </div>
     </section>
@@ -431,6 +915,20 @@
             <div class="poster">
                 <h3>Version Control</h3>
                 <p>GITHUB / GITLAB / CODEBERG - Distributed development across multiple platforms. Open source by default.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="github">
+        <h2 class="outline-text" style="font-size: 4rem; text-transform: uppercase;">Live GitHub Sync<span id="live-dot" class="live-dot" title="Live connection status" aria-label="Live connection status indicator"></span></h2>
+        <p class="sync-meta"><span id="sync-handle">@hautlys</span> // STREAMING PUBLIC ACTIVITY // <span id="last-sync">SYNCING...</span></p>
+
+        <div class="github-grid">
+            <div class="live-feed" id="live-feed" role="log" aria-live="polite" aria-label="Recent GitHub activity feed">
+                <div class="feed-empty">CONNECTING TO GITHUB...</div>
+            </div>
+            <div class="repos-grid" id="repos-grid" role="list" aria-label="Top GitHub repositories">
+                <div class="feed-empty">SCANNING REPOSITORIES...</div>
             </div>
         </div>
     </section>
@@ -529,23 +1027,41 @@
             }
         }
 
-        // Glitch Effect
+        // Glitch Effect - only run when hero is in view (saves CPU + reduces visual fatigue)
         const glitchElement = document.getElementById('glitch-text');
         const originalText = glitchElement.innerText;
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#$@&*";
-
-        setInterval(() => {
-            if (Math.random() > 0.9) {
-                let glitched = originalText.split('').map(char => {
-                    if (Math.random() > 0.8) return chars[Math.floor(Math.random() * chars.length)];
-                    return char;
-                }).join('');
-                glitchElement.innerText = glitched;
-                setTimeout(() => {
-                    glitchElement.innerText = originalText;
-                }, 100);
+        const _glitchInterval = { id: null };
+        function startGlitch() {
+            if (_glitchInterval.id) return;
+            _glitchInterval.id = setInterval(() => {
+                if (Math.random() > 0.9) {
+                    let glitched = originalText.split('').map(char => {
+                        if (Math.random() > 0.8) return chars[Math.floor(Math.random() * chars.length)];
+                        return char;
+                    }).join('');
+                    glitchElement.innerText = glitched;
+                    setTimeout(() => {
+                        glitchElement.innerText = originalText;
+                    }, 100);
+                }
+            }, 150);
+        }
+        function stopGlitch() {
+            if (_glitchInterval.id) {
+                clearInterval(_glitchInterval.id);
+                _glitchInterval.id = null;
+                glitchElement.innerText = originalText;
             }
-        }, 150);
+        }
+        if ('IntersectionObserver' in window) {
+            const heroObs = new IntersectionObserver(entries => {
+                entries.forEach(e => { e.isIntersecting ? startGlitch() : stopGlitch(); });
+            }, { threshold: 0.05 });
+            if (glitchElement) heroObs.observe(document.getElementById('hero'));
+        } else {
+            startGlitch();
+        }
 
         // Scroll Reveal
         const observerOptions = {
@@ -561,18 +1077,62 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.poster, .project-item').forEach(el => {
+        document.querySelectorAll('.poster, .project-item, .repo-card, .activity-row').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
             observer.observe(el);
         });
 
+        // Project FRONTEND/BACKEND toggle
+        function switchProjects(which) {
+            const fe = document.getElementById('projects-fe');
+            const be = document.getElementById('projects-be');
+            const feBtn = document.getElementById('front-tab');
+            const beBtn = document.getElementById('back-tab');
+            if (!fe || !be) return;
+
+            const showFE = which === 'fe';
+            fe.hidden = !showFE;
+            be.hidden = showFE;
+            feBtn.setAttribute('aria-pressed', showFE ? 'true' : 'false');
+            beBtn.setAttribute('aria-pressed', showFE ? 'false' : 'true');
+
+            // Reset scroll-reveal on the newly visible items so they animate in
+            const visibleItems = (showFE ? fe : be).querySelectorAll('.project-item');
+            visibleItems.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                observer.unobserve(el);
+                observer.observe(el);
+            });
+
+            // Hide any stray hover-preview image still floating from the other panel
+            document.querySelectorAll('.project-img-preview').forEach(img => {
+                img.style.opacity = '0';
+                img.style.transform = 'none';
+                img.style.display = 'none';
+            });
+
+            try { localStorage.setItem('project_tab', showFE ? 'fe' : 'be'); } catch {}
+
+            // Move focus to the now-active tab so screen readers announce the change
+            (showFE ? feBtn : beBtn).focus({ preventScroll: true });
+        }
+
+        // Restore last-selected tab
+        try {
+            const saved = localStorage.getItem('project_tab');
+            if (saved === 'be') switchProjects('be');
+        } catch {}
+
         // Version overlay functions
         function showVersionOverlay(event) {
             event.preventDefault();
             event.stopPropagation();
             document.getElementById('version-overlay').style.display = 'flex';
+            const btn = document.querySelector('#version-overlay .version-btn');
+            if (btn) btn.focus({ preventScroll: true });
         }
 
         function hideVersionOverlay() {
@@ -584,11 +1144,24 @@
             event.preventDefault();
             event.stopPropagation();
             document.getElementById('sos-version-overlay').style.display = 'flex';
+            const btn = document.querySelector('#sos-version-overlay .version-btn');
+            if (btn) btn.focus({ preventScroll: true });
         }
 
         function hideSOSVersionOverlay() {
             document.getElementById('sos-version-overlay').style.display = 'none';
         }
+
+        // Escape-to-close overlays + trap focus inside them
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const overlayIds = ['version-overlay', 'sos-version-overlay'];
+                overlayIds.forEach(id => {
+                    const ov = document.getElementById(id);
+                    if (ov && ov.style.display === 'flex') ov.style.display = 'none';
+                });
+            }
+        });
 
         // Vitreous Background Animation (Deconstruction/Construction Circle)
         let scene, camera, renderer, particles;
@@ -710,6 +1283,369 @@
                 triggerReconstruction();
             }
         }, 4000);
+
+        // ========================================================================
+        // GITHUB LIVE SYNC
+        // ========================================================================
+        const GH_USER = 'hautlys';
+        const GH_API = 'https://api.github.com';
+        const CACHE_TTL_MS = 5 * 60 * 1000;
+        const LANG_COLORS = {
+            JavaScript: '#f1e05a', TypeScript: '#3178c6', Vue: '#41b883',
+            Rust: '#dea584', Python: '#3572A5', HTML: '#e34c26', CSS: '#563d7c',
+            SCSS: '#c6538c', Shell: '#89e051', Svelte: '#ff3e00', Go: '#00ADD8',
+            Java: '#b07219', C: '#555555', 'C++': '#f34b7d', Ruby: '#701516',
+            PHP: '#4F5D95', Kotlin: '#A97BFF', Swift: '#F05138', Dart: '#00B4AB',
+            Lua: '#000080', Astro: '#ff5d01', MDX: '#fcb32c', Liquid: '#bf2c2c'
+        };
+        const EVENT_LABELS = {
+            PushEvent: { cls: 'push', text: 'PUSH' },
+            CreateEvent: { cls: 'create', text: 'CREATE' },
+            PullRequestEvent: { cls: 'pr', text: 'PR' },
+            WatchEvent: { cls: 'star', text: 'STAR' },
+            ForkEvent: { cls: 'fork', text: 'FORK' },
+            DeleteEvent: { cls: 'push', text: 'DELETE' },
+            ReleaseEvent: { cls: 'create', text: 'RELEASE' },
+            IssuesEvent: { cls: 'pr', text: 'ISSUE' }
+        };
+
+        function cacheGet(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                const { ts, data } = JSON.parse(raw);
+                if (Date.now() - ts > CACHE_TTL_MS) return null;
+                return data;
+            } catch { return null; }
+        }
+        function cacheSet(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data }));
+            } catch {}
+        }
+        function setLiveStatus(online) {
+            const dot = document.getElementById('live-dot');
+            if (dot) dot.classList.toggle('offline', !online);
+        }
+        function relativeTime(iso) {
+            const diff = (Date.now() - new Date(iso).getTime()) / 1000;
+            if (diff < 60) return Math.floor(diff) + 's';
+            if (diff < 3600) return Math.floor(diff / 60) + 'm';
+            if (diff < 86400) return Math.floor(diff / 3600) + 'h';
+            if (diff < 604800) return Math.floor(diff / 86400) + 'd';
+            if (diff < 2592000) return Math.floor(diff / 604800) + 'w';
+            return Math.floor(diff / 2592000) + 'mo';
+        }
+        function escapeHTML(str) {
+            return String(str || '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+        }
+
+        async function fetchGH(path) {
+            const url = `${GH_API}${path}`;
+            const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
+            if (!res.ok) throw new Error('GH ' + res.status);
+            return res.json();
+        }
+
+        async function loadActivity(forceRefresh = false) {
+            const feed = document.getElementById('live-feed');
+
+            // Show skeleton on first load
+            const cached = forceRefresh ? null : cacheGet('gh_events_' + GH_USER);
+            if (!cached) {
+                if (feed) {
+                    feed.classList.add('loading');
+                    feed.innerHTML =
+                        '<div class="skeleton-line short"></div>' +
+                        '<div class="skeleton-line medium"></div>' +
+                        '<div class="skeleton-line long"></div>' +
+                        '<div class="skeleton-line medium"></div>' +
+                        '<div class="skeleton-line short"></div>';
+                }
+            }
+
+            let events = cached;
+            if (!events) {
+                try {
+                    events = await fetchGH('/users/' + GH_USER + '/events/public?per_page=30');
+                    cacheSet('gh_events_' + GH_USER, events);
+                } catch (e) {
+                    if (feed) {
+                        feed.classList.remove('loading');
+                        feed.innerHTML =
+                            '<div class="feed-empty" role="alert">' +
+                            '// SIGNAL_LOST //' +
+                            '<br><button class="retry-btn" onclick="refreshGitHubSync(true)" type="button" aria-label="Retry fetching GitHub activity">' +
+                            '[ RETRY ]</button>' +
+                            '<span class="hint">CHECK_RATE_LIMIT_OR_NETWORK</span>' +
+                            '</div>';
+                    }
+                    setLiveStatus(false);
+                    return;
+                }
+            }
+            setLiveStatus(true);
+            if (feed) feed.classList.remove('loading');
+
+            const lastSync = document.getElementById('last-sync');
+            if (lastSync) lastSync.textContent = 'LAST_PULL ' + new Date().toLocaleTimeString('en-GB');
+
+            if (!events || events.length === 0) {
+                if (feed) feed.innerHTML =
+                    '<div class="feed-empty">// NO_PUBLIC_ACTIVITY //<span class="hint">REPO_PUSHES_AND_REVIEWS_WILL_APPEAR_HERE</span></div>';
+                return;
+            }
+
+            const rowsHTML = events
+                .slice(0, 15)
+                .map(buildActivityRow)
+                .filter(Boolean) // drop empty PushEvents etc.
+                .slice(0, 15)
+                .join('');
+
+            if (feed) {
+                feed.innerHTML = rowsHTML ||
+                    '<div class="feed-empty">// NO_MEANINGFUL_EVENTS //<span class="hint">FILTERED_OUT_EMPTY_PUSHES</span></div>';
+            }
+        }
+
+        function buildActivityRow(ev) {
+            const meta = EVENT_LABELS[ev.type] || { cls: 'push', text: ev.type.replace('Event', '').toUpperCase() };
+            const repo = ev.repo ? ev.repo.name.split('/')[1] : (ev.payload && ev.payload.repository && ev.payload.repository.name) || '';
+            if (!repo) return null;
+
+            const detail = buildActivityDetail(ev);
+            // Drop rows that have no useful payload (e.g. PushEvent with 0 commits and no message)
+            if (!detail && ev.type === 'PushEvent') return null;
+
+            const repoURL = (ev.repo && ev.repo.url)
+                ? ev.repo.url.replace('api.github.com/repos', 'github.com')
+                : '#';
+
+            const isoTime = ev.created_at || '';
+            const detailHTML = detail
+                ? '<div class="activity-detail">' + detail + '</div>'
+                : '';
+
+            return '<div class="activity-row">' +
+                '<div class="activity-head">' +
+                    '<span class="activity-icon ' + meta.cls + '" aria-label="' + escapeHTML(meta.text) + ' event">' + meta.text + '</span>' +
+                    '<button type="button" class="activity-repo" aria-label="Open repository ' + escapeHTML(repo) + '" onclick="window.open(\'' + repoURL + '\',\'_blank\')">' + escapeHTML(repo) + '</button>' +
+                    '<span class="activity-time" data-iso="' + escapeHTML(isoTime) + '" title="' + escapeHTML(isoTime) + '">' + relativeTime(isoTime) + '</span>' +
+                '</div>' +
+                detailHTML +
+                '</div>';
+        }
+
+        function buildActivityDetail(ev) {
+            if (!ev.payload) return '';
+            switch (ev.type) {
+                case 'PushEvent': {
+                    const commits = ev.payload.commits || [];
+                    if (!commits.length) return '';
+                    const last = commits[commits.length - 1] || {};
+                    const msg = (last.message || '').split('\n')[0].slice(0, 80);
+                    if (!msg) return '';
+                    const sha = last.sha ? last.sha.slice(0, 7) : '';
+                    let html = '↳ ' + escapeHTML(msg);
+                    if (sha) html += '<span class="commit-sha">' + escapeHTML(sha) + '</span>';
+                    if (commits.length > 1) html += '<span class="commit-extra"> +' + (commits.length - 1) + ' more</span>';
+                    return html;
+                }
+                case 'PullRequestEvent':
+                    return '↳ ' + escapeHTML((ev.payload.action || '').toUpperCase() + ' #' + (ev.payload.number || ''))
+                        + (ev.payload.pull_request && ev.payload.pull_request.title
+                            ? ' — ' + escapeHTML(ev.payload.pull_request.title.slice(0, 70))
+                            : '');
+                case 'IssuesEvent':
+                    return '↳ ' + escapeHTML((ev.payload.action || '').toUpperCase() + ' #' + (ev.payload.number || ''))
+                        + (ev.payload.issue && ev.payload.issue.title
+                            ? ' — ' + escapeHTML(ev.payload.issue.title.slice(0, 70))
+                            : '');
+                case 'CreateEvent':
+                    return '↳ ' + escapeHTML((ev.payload.ref_type || '').toUpperCase()
+                        + (ev.payload.ref ? ': ' + ev.payload.ref : 'NEW REPOSITORY')
+                        + (ev.payload.description ? ' — ' + ev.payload.description.slice(0, 60) : ''));
+                case 'DeleteEvent':
+                    return '↳ REMOVED ' + escapeHTML((ev.payload.ref_type || 'reference').toUpperCase());
+                case 'WatchEvent':
+                    return '↳ STARRED';
+                case 'ForkEvent':
+                    return '↳ FORKED';
+                case 'ReleaseEvent':
+                    return '↳ RELEASED ' + escapeHTML((ev.payload.release && ev.payload.release.tag_name) || '');
+                case 'MemberEvent':
+                    return '↳ ' + escapeHTML((ev.payload.action || 'added').toUpperCase()) + ' MEMBER';
+                default:
+                    return '';
+            }
+        }
+
+        async function loadRepos(forceRefresh = false) {
+            const grid = document.getElementById('repos-grid');
+
+            const cached = forceRefresh ? null : cacheGet('gh_repos_' + GH_USER);
+            if (!cached) {
+                if (grid) {
+                    grid.classList.add('loading');
+                    grid.innerHTML =
+                        '<div class="skeleton-card"></div>' +
+                        '<div class="skeleton-card"></div>' +
+                        '<div class="skeleton-card"></div>' +
+                        '<div class="skeleton-card"></div>';
+                }
+            }
+
+            let repos = cached;
+            if (!repos) {
+                try {
+                    repos = await fetchGH('/users/' + GH_USER + '/repos?sort=pushed&per_page=12&type=owner');
+                    cacheSet('gh_repos_' + GH_USER, repos);
+                } catch (e) {
+                    if (grid) {
+                        grid.classList.remove('loading');
+                        grid.innerHTML =
+                            '<div class="feed-empty" role="alert">' +
+                            '// SIGNAL_LOST //' +
+                            '<br><button class="retry-btn" onclick="refreshGitHubSync(true)" type="button" aria-label="Retry fetching GitHub repositories">' +
+                            '[ RETRY ]</button>' +
+                            '<span class="hint">CHECK_RATE_LIMIT_OR_NETWORK</span>' +
+                            '</div>';
+                    }
+                    return;
+                }
+            }
+            if (grid) grid.classList.remove('loading');
+
+            if (!repos || repos.length === 0) {
+                if (grid) grid.innerHTML =
+                    '<div class="feed-empty">// NO_PUBLIC_REPOS //<span class="hint">USER_HAS_NO_PUBLIC_REPOSITORIES</span></div>';
+                return;
+            }
+
+            // Render up to 6 most-recently-pushed repos that have at least one signal of activity
+            const visible = repos
+                .filter(r => !r.archived && !r.disabled)
+                .slice(0, 6);
+
+            if (visible.length === 0) {
+                if (grid) grid.innerHTML = '<div class="feed-empty">// NO_ACTIVE_REPOS</div>';
+                return;
+            }
+
+            const cards = await Promise.all(visible.map(buildRepoCard));
+            if (grid) grid.innerHTML = cards.filter(Boolean).join('');
+        }
+
+        async function buildRepoCard(repo) {
+            let langs;
+            const langCache = cacheGet('gh_langs_' + repo.full_name);
+            if (langCache && typeof langCache === 'object') {
+                langs = langCache;
+            } else if (langCache === 'NONE') {
+                langs = null;
+            } else {
+                try {
+                    langs = await fetchGH('/repos/' + repo.full_name + '/languages');
+                    cacheSet('gh_langs_' + repo.full_name, langs || {});
+                } catch {
+                    langs = repo.language ? { [repo.language]: 0 } : null;
+                    cacheSet('gh_langs_' + repo.full_name, langs || {});
+                }
+            }
+
+            const langEntries = langs ? Object.entries(langs).filter(([, b]) => b > 0).sort((a, b) => b[1] - a[1]) : [];
+            const totalBytes = langEntries.reduce((s, [, b]) => s + b, 0);
+            const stackHTML = langEntries.length
+                ? langEntries.slice(0, 4).map(([name, bytes]) => {
+                    const pct = totalBytes ? Math.round((bytes / totalBytes) * 100) : 0;
+                    return '<span class="lang-pill" title="' + escapeHTML(name) + ' ' + pct + '%">' +
+                        '<span class="lang-dot" style="background:' + (LANG_COLORS[name] || '#00FF85') + ';"></span>' +
+                        escapeHTML(name) + ' ' + pct + '%</span>';
+                }).join('')
+                : (repo.language
+                    ? '<span class="lang-pill" title="' + escapeHTML(repo.language) + ' (estimated)">' +
+                        '<span class="lang-dot" style="background:' + (LANG_COLORS[repo.language] || '#00FF85') + ';"></span>' +
+                        escapeHTML(repo.language) + '</span>'
+                    : '');
+
+            // Description: prefer real; hide entirely if missing or just punctuation noise
+            const desc = (repo.description || '').trim();
+            const showDesc = desc && desc.length > 2 && desc.toLowerCase() !== 'no description';
+            const descHTML = showDesc
+                ? '<div class="repo-desc">' + escapeHTML(desc) + '</div>'
+                : '';
+
+            const metaParts = [];
+            if (repo.stargazers_count > 0) metaParts.push('<span title="Stars">★ ' + repo.stargazers_count + '</span>');
+            if (repo.forks_count > 0) metaParts.push('<span title="Forks">⑂ ' + repo.forks_count + '</span>');
+            metaParts.push('<span title="' + escapeHTML(repo.fork ? 'Forked repository' : 'Main repository') + '">' +
+                (repo.fork ? 'FORK' : '★ MAIN') + '</span>');
+            const pushedHTML = repo.pushed_at
+                ? '<span class="repo-time" data-iso="' + escapeHTML(repo.pushed_at) + '" title="' + escapeHTML(repo.pushed_at) + '">UPDATED ' + relativeTime(repo.pushed_at) + '</span>'
+                : '';
+            if (pushedHTML) metaParts.push(pushedHTML);
+            const metaHTML = metaParts.join('');
+
+            const url = repo.html_url;
+            const repoTopics = (repo.topics && repo.topics.length)
+                ? '<div class="repo-topics">' + repo.topics.slice(0, 3)
+                    .map(t => '<span class="topic-pill">#' + escapeHTML(t) + '</span>').join('') + '</div>'
+                : '';
+
+            return '<button type="button" class="repo-card" aria-label="Open repository ' + escapeHTML(repo.name) + ' on GitHub" onclick="window.open(\'' + escapeHTML(url) + '\',\'_blank\')">' +
+                '<div class="repo-head">' +
+                    '<div class="repo-name">' + escapeHTML(repo.name) + '</div>' +
+                '</div>' +
+                descHTML +
+                repoTopics +
+                (metaHTML ? '<div class="repo-meta">' + metaHTML + '</div>' : '') +
+                (stackHTML ? '<div class="repo-stack">' + stackHTML + '</div>' : '') +
+                '</button>';
+        }
+
+        async function refreshGitHubSync(forceRefresh = false) {
+            await Promise.all([loadActivity(forceRefresh), loadRepos(forceRefresh)]);
+        }
+
+        if (document.getElementById('github')) {
+            window.addEventListener('DOMContentLoaded', refreshGitHubSync);
+
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    const lastRaw = localStorage.getItem('gh_events_' + GH_USER);
+                    let stale = true;
+                    try {
+                        const parsed = JSON.parse(lastRaw);
+                        stale = !parsed || (Date.now() - parsed.ts > CACHE_TTL_MS);
+                    } catch { stale = true; }
+                    if (stale) refreshGitHubSync(true);
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------------
+        // Live ticker: refresh relative timestamps in place every 30s.
+        // Total network cost: zero. Uses data-iso attribute set during render.
+        // ------------------------------------------------------------------------
+        let ghTickerId = null;
+        function startGitHubTicker() {
+            if (ghTickerId) return;
+            const root = document.getElementById('github');
+            if (!root) return;
+            ghTickerId = setInterval(() => {
+                if (document.hidden) return;
+                root.querySelectorAll('[data-iso]').forEach(el => {
+                    const iso = el.getAttribute('data-iso');
+                    if (!iso) return;
+                    const next = relativeTime(iso);
+                    if (el.textContent !== next) el.textContent = next;
+                });
+            }, 30000);
+        }
+        document.addEventListener('DOMContentLoaded', startGitHubTicker);
     </script>
 </body>
 </html>

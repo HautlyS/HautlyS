@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carbonized Monolith — older portfolio iteration. Grid-based project layout with brutalist aesthetic.">
+    <meta name="theme-color" content="#00ff41">
+    <meta name="color-scheme" content="dark">
     <title>CARBONIZED MONOLITH | PORTFOLIO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +24,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: crosshair;
         }
+
+        body { cursor: crosshair; }
+        a, button, [role="button"], label[for], input, textarea, select { cursor: pointer; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.05ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 2px dashed var(--accent);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--accent);
+            color: #000;
+            padding: 0.75rem 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            z-index: 100000;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 1rem; }
 
         body {
             background-color: var(--bg);
@@ -224,25 +258,27 @@
 </head>
 <body>
 
+    <a href="#hero" class="skip-link">Skip to content</a>
+
     <div class="skeleton-grid">
         <!-- Navigation -->
-        <nav>
+        <nav aria-label="Primary">
             <div class="nav-logo">SYSTEM_CORE / v2.04</div>
             <div class="nav-links" style="font-family: var(--mono); font-size: 0.8rem;">
                 [ INDEX ] [ ARCHIVE ] [ CONNECT ]
             </div>
             <div class="status" style="color: var(--accent); font-family: var(--mono); font-size: 0.8rem;">
-                ● AVAILABLE_FOR_HIRE
+                <span aria-label="Available for hire" role="status">● AVAILABLE_FOR_HIRE</span>
             </div>
         </nav>
 
         <!-- Hero -->
-        <section class="hero cell">
+        <section id="hero" class="hero cell">
             <span class="meta">[00] INITIALIZING_IDENTITY</span>
             <h1 class="massive-text glitch-hover">RAW<br>FORM</h1>
             <div style="max-width: 600px; margin-top: 2rem;">
                 <p class="data-val" style="font-size: 1.5rem; line-height: 1.2;">
-                    Full-stack weaponized design. Building high-performance digital monoliths for the next web iteration. <span class="cursor"></span>
+                    Full-stack weaponized design. Building high-performance digital monoliths for the next web iteration. <span class="cursor" aria-hidden="true"></span>
                 </p>
             </div>
         </section>
