@@ -63,12 +63,6 @@
 
 <div align="center">
 
-## 📊 GitHub Stats
-
-[![HautlyS's GitHub Stats](https://github-readme-stats-sigma-five.vercel.app/api?username=HautlyS&show_icons=true&theme=dark&hide_border=true&bg_color=000000&title_color=00ff41&icon_color=00ff41&text_color=ffffff&include_all_commits=true&count_private=true)](https://github.com/HautlyS)
-
-[![Top Languages](https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=HautlyS&layout=compact&theme=dark&hide_border=true&bg_color=000000&title_color=00ff41&text_color=ffffff&langs_count=8)](https://github.com/HautlyS)
-
 **🔱 = Forked & Enhanced**
 
 </div>
