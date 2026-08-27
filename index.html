@@ -437,41 +437,67 @@
             .activity-time { display: none; }
         }
 
-        /* Project FRONTEND/BACKEND toggle */
+        /* Project FRONTEND/BACKEND toggle
+           --------------------------------
+           Every border, padding and outline is expressed in 'em' so it scales
+           fluidly with the font-size of the toggle's buttons.
+        */
         .project-toggle {
             display: inline-flex;
-            margin-top: 1.5rem;
-            border: 2px solid var(--green);
+            margin: 1.5rem 0 0;
+            border: 0.18em solid var(--green);
+            background: transparent;
             font-family: var(--mono);
             text-transform: uppercase;
             font-weight: 700;
-            background: transparent;
+            /* Fluid font-size drives border weight, padding, divider, outline */
+            font-size: clamp(0.78rem, 1.45vw + 0.4rem, 1.15rem);
+            line-height: 1;
+            align-items: stretch;
+            transition: border-color 0.2s ease;
         }
+        .project-toggle:hover { border-color: #fff; }
         .project-toggle button {
             background: transparent;
             color: var(--green);
-            border: none;
-            padding: 0.85rem 2rem;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: inherit;
-            text-transform: inherit;
-            letter-spacing: 0.1em;
-            transition: background 0.2s, color 0.2s;
+            border: 0;
+            margin: 0;
+            padding: 0.85em 2.1em;
+            min-height: 2.6em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font: inherit;
+            letter-spacing: 0.12em;
+            cursor: pointer;
             position: relative;
+            transition: background 0.2s ease, color 0.2s ease, outline-color 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         .project-toggle button + button {
-            border-left: 2px solid var(--green);
+            border-left: 0.12em solid var(--green);
         }
         .project-toggle button[aria-pressed="true"] {
             background: var(--green);
             color: var(--bg);
+            /* Heavy outer outline that scales with font-size, lifts the active side */
+            outline: 0.12em solid var(--green);
+            outline-offset: 0.18em;
+            z-index: 1;
         }
         .project-toggle button:hover:not([aria-pressed="true"]) {
             background: var(--green-dim);
         }
-        @media (max-width: 768px) {
-            .project-toggle button { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        .project-toggle button:focus-visible {
+            outline: 0.12em dashed currentColor;
+            outline-offset: 0.18em;
+        }
+        .project-toggle button[aria-pressed="true"]:focus-visible {
+            outline-color: var(--bg);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .project-toggle, .project-toggle button { transition: none; }
         }
 
         /* Show/hide per tab */
